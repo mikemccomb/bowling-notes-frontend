@@ -1,4 +1,3 @@
-// import { DebounceInput } from "react-debounce-input";
 import { useState } from "react";
 import axios from "axios";
 
@@ -7,24 +6,16 @@ export function SessionsNew() {
   const [games, setGames] = useState({ gameone: 0, gametwo: 0, gamethree: 0 });
   const [status, setStatus] = useState(null);
 
-  const setFirstGame = (e) => {
-    setGames((existingValues) => ({ ...existingValues, gameone: +e.target.value }));
+  const updateGame = (e) => {
+    const game = e.target.name;
+    setGames((existingValues) => ({ ...existingValues, [game]: +e.target.value }));
   };
-
-  const setSecondGame = (e) => {
-    setGames((existingValues) => ({ ...existingValues, gametwo: +e.target.value }));
-  };
-
-  const setThirdGame = (e) => {
-    setGames((existingValues) => ({ ...existingValues, gamethree: +e.target.value }));
-  };
-
   console.log(games);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    const params = new FormData(event.target);
+    const params = new FormData(e.target);
     axios
       .post("http://localhost:3000/league_sessions.json", params)
       .then((response) => {
@@ -54,16 +45,19 @@ export function SessionsNew() {
           Date: <input name="date" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
         </div>
         <div>
-          Game One: <input minLength={0} name="gameone" type="number" onChange={setFirstGame} />
+          Game One: <input minLength={0} name="gameone" type="number" onChange={updateGame} />
         </div>
         <div>
-          Game Two: <input minLength={0} name="gametwo" type="number" onChange={setSecondGame} />
+          Game Two: <input minLength={0} name="gametwo" type="number" onChange={updateGame} />
         </div>
         <div>
-          Game Three: <input minLength={0} name="gamethree" type="number" onChange={setThirdGame} />
+          Game Three: <input minLength={0} name="gamethree" type="number" onChange={updateGame} />
         </div>
         <div>
           Series: <input name="series" type="number" value={games.gameone + games.gametwo + games.gamethree} readOnly />
+        </div>
+        <div>
+          Notes: <input name="notes" type="text" defaultValue={""} />
         </div>
         <div>
           <button type="submit">Enter Scores</button>
