@@ -1,18 +1,23 @@
+import { DebounceInput } from "react-debounce-input";
 import { useState, useEffect } from "react";
 
 export function SessionsNew() {
+  const [games, setGames] = useState({ gameone: 0, gametwo: 0, gamethree: 0 });
   const [series, setSeries] = useState(0);
-  const [scores, setScores] = useState({
-    gameone: 0,
-    gametwo: 0,
-    gamethree: 0,
-  });
 
-  // let date = new Date(date).toISOString().split("T")[0];
+  const setFirstGame = (e) => {
+    setGames((existingValues) => ({ ...existingValues, gameone: +e.target.value }));
+  };
 
-  // useEffect(() => getSeries(), [scores]);
+  const setSecondGame = (e) => {
+    setGames((existingValues) => ({ ...existingValues, gametwo: +e.target.value }));
+  };
 
-  // Refer to Signup.jsx in Blog-Frontend, line 38
+  const setThirdGame = (e) => {
+    setGames((existingValues) => ({ ...existingValues, gamethree: +e.target.value }));
+  };
+
+  console.log(games);
 
   return (
     <div>
@@ -22,16 +27,19 @@ export function SessionsNew() {
           Date: <input name="date" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
         </div>
         <div>
-          Game One: <input name="gameone" type="number" />
+          Game One:{" "}
+          <DebounceInput minLength={0} name="gameone" type="number" debounceTimeout={300} onChange={setFirstGame} />
         </div>
         <div>
-          Game Two: <input name="gametwo" type="number" />
+          Game Two:{" "}
+          <DebounceInput minLength={0} name="gametwo" type="number" debounceTimeout={300} onChange={setSecondGame} />
         </div>
         <div>
-          Game Three: <input name="gamethree" type="number" />
+          Game Three:{" "}
+          <DebounceInput minLength={0} name="gamethree" type="number" debounceTimeout={300} onChange={setThirdGame} />
         </div>
         <div>
-          Series: <input name="series" type="number" />
+          Series: <input name="series" type="number" value={games.gameone + games.gametwo + games.gamethree} readOnly />
         </div>
         <div>
           <button type="submit">Enter Scores</button>
