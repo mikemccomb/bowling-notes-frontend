@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { SessionsIndex } from "./SessionsIndex";
+import { SessionsNew } from "./SessionsNew";
 
 export function Content() {
   // const sessions = [
@@ -22,6 +23,7 @@ export function Content() {
   return (
     <div>
       <SessionsIndex sessions={sessions} />
+      <SessionsNew />
     </div>
   );
 }
