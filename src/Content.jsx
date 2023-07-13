@@ -2,12 +2,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { SessionsIndex } from "./SessionsIndex";
 import { SessionsNew } from "./SessionsNew";
+import { Modal } from "./Modal";
 
 export function Content() {
-  // const sessions = [
-  //   { id: 1, date: "2023-04-07", gameone: 198, gametwo: 175, gamethree: 180, notes: "Does this work?" },
-  //   { id: 2, date: "2023-07-04", gameone: 198, gametwo: 175, gamethree: 180, notes: "Does this work?" },
-  // ];
   const [sessions, setSessions] = useState([]);
 
   const handleIndexSessions = () => {
@@ -22,8 +19,11 @@ export function Content() {
 
   return (
     <div>
-      <SessionsIndex sessions={sessions} />
       <SessionsNew />
+      <SessionsIndex sessions={sessions} />
+      <Modal show={true}>
+        <h1>Test</h1>
+      </Modal>
     </div>
   );
 }
