@@ -15,15 +15,23 @@ export function Content() {
     });
   };
 
+  const handleCreateSession = (params, successCallback) => {
+    console.log("handleCreateSession", params);
+    axios.post("http://localhost:3000/league_sessions.json", params).then((response) => {
+      setSessions([...sessions, response.data]);
+      successCallback();
+    });
+  };
+
   useEffect(handleIndexSessions, []);
 
   return (
     <div>
-      <SessionsNew />
+      <SessionsNew onCreateSession={handleCreateSession} />
       <SessionsIndex sessions={sessions} />
-      <Modal show={true}>
+      {/* <Modal show={true}>
         <h1>Test</h1>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

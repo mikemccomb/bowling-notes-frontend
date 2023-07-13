@@ -1,10 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 
-export function SessionsNew() {
-  const [errors, setErrors] = useState([]);
+export function SessionsNew(props) {
   const [games, setGames] = useState({ gameone: 0, gametwo: 0, gamethree: 0 });
-  const [status, setStatus] = useState(null);
+  // const [status, setStatus] = useState(null);
 
   const updateGame = (e) => {
     const game = e.target.name;
@@ -12,34 +10,16 @@ export function SessionsNew() {
   };
   console.log(games);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors([]);
-    const params = new FormData(e.target);
-    axios
-      .post("http://localhost:3000/league_sessions.json", params)
-      .then((response) => {
-        console.log(response.data);
-        e.target.reset();
-        localStorage.setItem("flashMessage", "League session added");
-        window.location.href = "/";
-      })
-      .catch((error) => {
-        setStatus(error.response.status);
-        console.log(error.response.data.errors);
-        setErrors(error.response.data.errors);
-      });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const params = new FormData(event.target);
+    props.onCreateSession(params, () => event.target.reset());
   };
 
   return (
     <div>
       <h1>New League Session</h1>
-      <ul>
-        {status ? <img src={`https://httpstatusdogs.com/img/${status}.jpg`} /> : null}
-        {errors.map((error) => (
-          <li key={error}>{error}</li>
-        ))}
-      </ul>
+
       <form onSubmit={handleSubmit}>
         <div>
           Date: <input name="date" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
