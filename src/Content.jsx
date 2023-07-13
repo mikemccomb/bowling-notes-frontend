@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { SessionsIndex } from "./SessionsIndex";
 import { SessionsNew } from "./SessionsNew";
+import { SessionsShow } from "./SessionsShow";
 import { Modal } from "./Modal";
 
 export function Content() {
@@ -43,7 +44,7 @@ export function Content() {
       <SessionsNew onCreateSession={handleCreateSession} />
       <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
-        <h1>Test</h1>
+        <SessionsShow session={currentSession} />
       </Modal>
     </div>
   );
