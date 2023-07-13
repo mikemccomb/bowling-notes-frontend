@@ -11,6 +11,7 @@ export function SessionsIndex(props) {
           <p>Game Three: {session.gamethree}</p>
           <p>Series: {session.series}</p>
           <p>Notes: {session.notes}</p>
+          <button onClick={() => props.onShowSession(session)}>Session Info</button>
         </div>
       ))}
     </div>

@@ -6,6 +6,8 @@ import { Modal } from "./Modal";
 
 export function Content() {
   const [sessions, setSessions] = useState([]);
+  const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
+  const [currentSession, setCurrentSession] = useState({});
 
   const handleIndexSessions = () => {
     console.log("handleIndexSessions");
@@ -23,15 +25,26 @@ export function Content() {
     });
   };
 
+  const handleShowSession = (session) => {
+    console.log("handleShowSession", session);
+    setIsSessionsShowVisible(true);
+    setCurrentSession(session);
+  };
+
+  const handleClose = () => {
+    console.log("handleClose");
+    setIsSessionsShowVisible(false);
+  };
+
   useEffect(handleIndexSessions, []);
 
   return (
     <div>
       <SessionsNew onCreateSession={handleCreateSession} />
-      <SessionsIndex sessions={sessions} />
-      {/* <Modal show={true}>
+      <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
+      <Modal show={isSessionsShowVisible} onClose={handleClose}>
         <h1>Test</h1>
-      </Modal> */}
+      </Modal>
     </div>
   );
 }
