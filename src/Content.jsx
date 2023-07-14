@@ -61,7 +61,7 @@ export function Content() {
       <SessionsNew onCreateSession={handleCreateSession} />
       <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
-        <SessionsShow session={currentSession} onUpdatePhoto={handleUpdateSession} />
+        <SessionsShow session={currentSession} onUpdateSession={handleUpdateSession} />
       </Modal>
     </div>
   );

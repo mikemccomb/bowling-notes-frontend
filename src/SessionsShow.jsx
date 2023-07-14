@@ -13,7 +13,12 @@ export function SessionsShow(props) {
     const game = e.target.name;
     setGames((existingValues) => ({ ...existingValues, [game]: +e.target.value }));
   };
-  console.log(games);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const params = new FormData(event.target);
+    props.onUpdateSession(props.session.id, params, () => event.target.reset());
+  };
 
   return (
     <div>
@@ -24,7 +29,7 @@ export function SessionsShow(props) {
       <p>Game Three: {props.session.gamethree}</p>
       <p>Series: {props.session.series}</p>
       <p>Notes: {props.session.notes}</p>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           Date: <input name="date" type="date" defaultValue={props.session.date} />
         </div>
