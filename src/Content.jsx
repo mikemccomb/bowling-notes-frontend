@@ -49,6 +49,14 @@ export function Content() {
     });
   };
 
+  const handleDestroySession = (session) => {
+    console.log("handleDestroySession", session);
+    axios.delete(`http://localhost:3000/league_sessions/${session.id}.json`).then((response) => {
+      setSessions(sessions.filter((s) => s.id !== session.id));
+      handleClose();
+    });
+  };
+
   const handleClose = () => {
     console.log("handleClose");
     setIsSessionsShowVisible(false);
@@ -61,7 +69,11 @@ export function Content() {
       <SessionsNew onCreateSession={handleCreateSession} />
       <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
-        <SessionsShow session={currentSession} onUpdateSession={handleUpdateSession} />
+        <SessionsShow
+          session={currentSession}
+          onUpdateSession={handleUpdateSession}
+          onDestroySession={handleDestroySession}
+        />
       </Modal>
     </div>
   );

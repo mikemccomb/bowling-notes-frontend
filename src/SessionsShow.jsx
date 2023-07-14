@@ -20,6 +20,10 @@ export function SessionsShow(props) {
     props.onUpdateSession(props.session.id, params, () => event.target.reset());
   };
 
+  const handleClick = () => {
+    props.onDestroySession(props.session);
+  };
+
   return (
     <div>
       <h1>Session Information</h1>
@@ -73,6 +77,7 @@ export function SessionsShow(props) {
           <button type="submit">Update Scores</button>
         </div>
       </form>
+      <button onClick={handleClick}>Delete session</button>
     </div>
   );
 }
