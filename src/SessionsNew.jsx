@@ -14,6 +14,8 @@ export function SessionsNew(props) {
     event.preventDefault();
     const params = new FormData(event.target);
     props.onCreateSession(params, () => event.target.reset());
+    event.target.reset();
+    window.location.href = "/";
   };
 
   return (
@@ -25,19 +27,20 @@ export function SessionsNew(props) {
           Date: <input name="date" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
         </div>
         <div>
-          Game One: <input minLength={0} name="gameone" type="number" onChange={updateGame} />
+          <label>Game One:</label> <input maxLength={3} name="gameone" type="number" onChange={updateGame} />
         </div>
         <div>
-          Game Two: <input minLength={0} name="gametwo" type="number" onChange={updateGame} />
+          <label>Game Two:</label> <input maxLength={3} name="gametwo" type="number" onChange={updateGame} />
         </div>
         <div>
-          Game Three: <input minLength={0} name="gamethree" type="number" onChange={updateGame} />
+          <label>Game Three:</label> <input maxLength={3} name="gamethree" type="number" onChange={updateGame} />
         </div>
         <div>
-          Series: <input name="series" type="number" value={games.gameone + games.gametwo + games.gamethree} readOnly />
+          <label>Series:</label>{" "}
+          <input name="series" type="number" value={games.gameone + games.gametwo + games.gamethree} readOnly />
         </div>
         <div>
-          Notes: <input name="notes" type="text" defaultValue={""} />
+          <label>Notes:</label> <input name="notes" type="text" defaultValue={""} />
         </div>
         <div>
           <button type="submit">Enter Scores</button>
