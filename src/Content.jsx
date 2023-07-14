@@ -2,13 +2,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { SessionsIndex } from "./SessionsIndex";
 import { SessionsNew } from "./SessionsNew";
+import { SessionsShow } from "./SessionsShow";
+import { Modal } from "./Modal";
 
 export function Content() {
-  // const sessions = [
-  //   { id: 1, date: "2023-04-07", gameone: 198, gametwo: 175, gamethree: 180, notes: "Does this work?" },
-  //   { id: 2, date: "2023-07-04", gameone: 198, gametwo: 175, gamethree: 180, notes: "Does this work?" },
-  // ];
   const [sessions, setSessions] = useState([]);
+  const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
+  const [currentSession, setCurrentSession] = useState({});
 
   const handleIndexSessions = () => {
     console.log("handleIndexSessions");
@@ -18,12 +18,63 @@ export function Content() {
     });
   };
 
+  const handleCreateSession = (params, successCallback) => {
+    console.log("handleCreateSession", params);
+    axios.post("http://localhost:3000/league_sessions.json", params).then((response) => {
+      setSessions([...sessions, response.data]);
+      successCallback();
+    });
+  };
+
+  const handleShowSession = (session) => {
+    console.log("handleShowSession", session);
+    setIsSessionsShowVisible(true);
+    setCurrentSession(session);
+  };
+
+  const handleUpdateSession = (id, params, successCallback) => {
+    console.log("handleUpdateSession", params);
+    axios.patch(`http://localhost:3000/league_sessions/${id}.json`, params).then((response) => {
+      setSessions(
+        sessions.map((session) => {
+          if (session.id === response.data.id) {
+            return response.data;
+          } else {
+            return session;
+          }
+        })
+      );
+      successCallback();
+      handleClose();
+    });
+  };
+
+  const handleDestroySession = (session) => {
+    console.log("handleDestroySession", session);
+    axios.delete(`http://localhost:3000/league_sessions/${session.id}.json`).then((response) => {
+      setSessions(sessions.filter((s) => s.id !== session.id));
+      handleClose();
+    });
+  };
+
+  const handleClose = () => {
+    console.log("handleClose");
+    setIsSessionsShowVisible(false);
+  };
+
   useEffect(handleIndexSessions, []);
 
   return (
     <div>
-      <SessionsIndex sessions={sessions} />
-      <SessionsNew />
+      <SessionsNew onCreateSession={handleCreateSession} />
+      <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
+      <Modal show={isSessionsShowVisible} onClose={handleClose}>
+        <SessionsShow
+          session={currentSession}
+          onUpdateSession={handleUpdateSession}
+          onDestroySession={handleDestroySession}
+        />
+      </Modal>
     </div>
   );
 }

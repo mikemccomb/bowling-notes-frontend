@@ -4,7 +4,7 @@ import { Footer } from "./Footer";
 
 function App() {
   return (
-    <div>
+    <div className="container-fluid font-link">
       <Header />
       <Content />
       <Footer />
