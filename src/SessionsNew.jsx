@@ -18,8 +18,8 @@ export function SessionsNew(props) {
   };
 
   return (
-    <div>
-      <h1>New League Session</h1>
+    <div className="card mt-3">
+      <h1 className="card-header">New League Session</h1>
       <form className="form-control" onSubmit={handleSubmit}>
         <table className="table">
           <tr>
