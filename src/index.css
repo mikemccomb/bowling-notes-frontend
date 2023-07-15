@@ -10,3 +10,8 @@ html {
 .font-link {
   font-family: 'Fjalla One', sans-serif;
 }
+
+.btn {
+  margin-right: 5px;
+  margin-left: 5px;
+}
