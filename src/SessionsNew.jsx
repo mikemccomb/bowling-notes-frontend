@@ -2,7 +2,6 @@ import { useState } from "react";
 
 export function SessionsNew(props) {
   const [games, setGames] = useState({ gameone: 0, gametwo: 0, gamethree: 0 });
-  // const [status, setStatus] = useState(null);
 
   const updateGame = (e) => {
     const game = e.target.name;
@@ -19,31 +18,63 @@ export function SessionsNew(props) {
   };
 
   return (
-    <div>
-      <h1>New League Session</h1>
-
-      <form onSubmit={handleSubmit}>
+    <div className="card mt-3">
+      <h1 className="card-header">New League Session</h1>
+      <form className="form-control" onSubmit={handleSubmit}>
+        <table className="table">
+          <tr>
+            <td>
+              <label>Date:</label>
+            </td>
+            <td>
+              <input name="date" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Game 1:</label>
+            </td>
+            <td>
+              <input maxLength="3" name="gameone" type="number" onChange={updateGame} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Game 2:</label>
+            </td>
+            <td>
+              <input minLength="3" name="gametwo" type="number" onChange={updateGame} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Game 3:</label>
+            </td>
+            <td>
+              <input minLength="3" name="gamethree" type="number" onChange={updateGame} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Series:</label>
+            </td>
+            <td>
+              <input name="series" type="number" value={games.gameone + games.gametwo + games.gamethree} readOnly />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Notes:</label>
+            </td>
+            <td>
+              <input name="notes" type="textarea" defaultValue={""} />
+            </td>
+          </tr>
+        </table>
         <div>
-          Date: <input name="date" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
-        </div>
-        <div>
-          <label>Game One:</label> <input maxLength={3} name="gameone" type="number" onChange={updateGame} />
-        </div>
-        <div>
-          <label>Game Two:</label> <input maxLength={3} name="gametwo" type="number" onChange={updateGame} />
-        </div>
-        <div>
-          <label>Game Three:</label> <input maxLength={3} name="gamethree" type="number" onChange={updateGame} />
-        </div>
-        <div>
-          <label>Series:</label>{" "}
-          <input name="series" type="number" value={games.gameone + games.gametwo + games.gamethree} readOnly />
-        </div>
-        <div>
-          <label>Notes:</label> <input name="notes" type="text" defaultValue={""} />
-        </div>
-        <div>
-          <button type="submit">Enter Scores</button>
+          <button className="btn btn-success" type="submit">
+            Enter Scores
+          </button>
         </div>
       </form>
     </div>
