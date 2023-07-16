@@ -9,18 +9,34 @@ export function SessionsIndex(props) {
         <p className="card-text">Day, Time, Center, Other Info</p>
       </div>
       <h3 className="card-body">League Sessions</h3>
-      {props.sessions.map((session) => (
-        <div key={session.id} className="card-text">
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <label>{session.date}</label>
-              <button onClick={() => props.onShowSession(session)} className="btn btn-warning">
-                Session Info
-              </button>
-            </li>
-          </ul>
-        </div>
-      ))}
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Game 1</th>
+            <th>Game 2</th>
+            <th>Game 3</th>
+            <th>Series</th>
+            <th></th>
+          </tr>
+        </thead>
+        {props.sessions.map((session) => (
+          <tbody key={session.id} className="card-text">
+            <tr>
+              <th scope="row">{session.date}</th>
+              <td>{session.gameone}</td>
+              <td>{session.gametwo}</td>
+              <td>{session.gamethree}</td>
+              <td>{session.series}</td>
+              <td>
+                <button onClick={() => props.onShowSession(session)} className="btn btn-warning">
+                  Notes
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        ))}
+      </table>
     </div>
   );
 }
