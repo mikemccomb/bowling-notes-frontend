@@ -9,7 +9,7 @@ export function SessionsIndex(props) {
         <p className="card-text">Day, Time, Center, Other Info</p>
       </div>
       <h3 className="card-body">League Sessions</h3>
-      <table className="table">
+      <table className="table card-text">
         <thead>
           <tr>
             <th>Date</th>
@@ -21,7 +21,7 @@ export function SessionsIndex(props) {
           </tr>
         </thead>
         {props.sessions.map((session) => (
-          <tbody key={session.id} className="card-text">
+          <tbody key={session.id}>
             <tr>
               <th scope="row">{session.date}</th>
               <td>{session.gameone}</td>

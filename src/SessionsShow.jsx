@@ -141,7 +141,8 @@ export function SessionsShow(props) {
             </tr>
           </tbody>
         </table>
-        <p>Notes: {props.session.notes}</p>
+        <h3>Notes</h3>
+        <p>{props.session.notes}</p>
         <button className="btn btn-secondary" onClick={handleEditSession}>
           Edit Session
         </button>
