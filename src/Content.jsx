@@ -5,6 +5,7 @@ import { SessionsNew } from "./SessionsNew";
 import { SessionsShow } from "./SessionsShow";
 import { Modal } from "./Modal";
 import { SeasonsIndex } from "./SeasonsIndex";
+import { SeasonsNew } from "./SeasonsNew";
 
 export function Content() {
   const [sessions, setSessions] = useState([]);
@@ -22,6 +23,14 @@ export function Content() {
   };
 
   useEffect(handleIndexSeasons, []);
+
+  const handleCreateSeason = (params, successCallback) => {
+    console.log("handleCreateSeason", params);
+    axios.post("http://localhost:3000/seasons.json", params).then((response) => {
+      setSeasons([...seasons, response.data]);
+      successCallback();
+    });
+  };
 
   const handleIndexSessions = () => {
     console.log("handleIndexSessions");
@@ -79,8 +88,9 @@ export function Content() {
 
   return (
     <div>
-      <SessionsNew onCreateSession={handleCreateSession} />
+      <SeasonsNew onCreateSeason={handleCreateSeason} />
       <SeasonsIndex seasons={seasons} />
+      <SessionsNew onCreateSession={handleCreateSession} />
       <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
         <SessionsShow
