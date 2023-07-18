@@ -3,11 +3,6 @@ export function SessionsIndex(props) {
   console.log(props);
   return (
     <div className="card mt-3">
-      <h1 className="card-header">League Name</h1>
-      <div className="card-body">
-        <h3 className="card-title">League Information</h3>
-        <p className="card-text">Day, Time, Center, Other Info</p>
-      </div>
       <h3 className="card-body">League Sessions</h3>
       <table className="table card-text">
         <thead>

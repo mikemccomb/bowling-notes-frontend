@@ -1,13 +1,16 @@
+import { SessionsIndex } from "./SessionsIndex";
+
 export function SeasonsIndex(props) {
   return (
-    <div>
-      <h1>All seasons</h1>
+    <div className="card-body">
+      <h2 className="card-title">Seasons</h2>
       {props.seasons.map((season) => (
         <div key={season.id}>
-          <h2>{season.name}</h2>
-          <p>Season starts: {season.start_date}</p>
-          <p>Season ends: {season.end_date}</p>
-          <p># of sessions: {season.number_sessions}</p>
+          <h3>{season.name}</h3>
+          <p>
+            Starts: {season.start_date} | Ends: {season.end_date} | {season.number_sessions} sessions
+          </p>
+          {/* <SessionsIndex sessions={season.league_sessions} /> */}
         </div>
       ))}
     </div>
