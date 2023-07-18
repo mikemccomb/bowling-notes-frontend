@@ -4,11 +4,24 @@ import { SessionsIndex } from "./SessionsIndex";
 import { SessionsNew } from "./SessionsNew";
 import { SessionsShow } from "./SessionsShow";
 import { Modal } from "./Modal";
+import { SeasonsIndex } from "./SeasonsIndex";
 
 export function Content() {
   const [sessions, setSessions] = useState([]);
   const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
   const [currentSession, setCurrentSession] = useState({});
+
+  const [seasons, setSeasons] = useState([]);
+
+  const handleIndexSeasons = () => {
+    console.log("handleIndexSeasons");
+    axios.get("http://localhost:3000/seasons.json").then((response) => {
+      console.log(response.data);
+      setSeasons(response.data);
+    });
+  };
+
+  useEffect(handleIndexSeasons, []);
 
   const handleIndexSessions = () => {
     console.log("handleIndexSessions");
@@ -67,6 +80,7 @@ export function Content() {
   return (
     <div>
       <SessionsNew onCreateSession={handleCreateSession} />
+      <SeasonsIndex seasons={seasons} />
       <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
         <SessionsShow
