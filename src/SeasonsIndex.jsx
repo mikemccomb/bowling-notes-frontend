@@ -10,7 +10,7 @@ export function SeasonsIndex(props) {
           <p>
             Starts: {season.start_date} | Ends: {season.end_date} | {season.number_sessions} sessions
           </p>
-          {/* <SessionsIndex sessions={season.league_sessions} /> */}
+          <SessionsIndex sessions={season.league_sessions} />
         </div>
       ))}
     </div>

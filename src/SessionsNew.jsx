@@ -71,6 +71,14 @@ export function SessionsNew(props) {
               <input name="notes" type="textarea" defaultValue={""} />
             </td>
           </tr>
+          <tr>
+            <td>
+              <label>Season:</label>
+            </td>
+            <td>
+              <input name="season_id" type="number" />
+            </td>
+          </tr>
         </table>
         <div>
           <button className="btn btn-success" type="submit">
