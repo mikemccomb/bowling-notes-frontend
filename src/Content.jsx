@@ -11,6 +11,7 @@ export function Content() {
   const [sessions, setSessions] = useState([]);
   const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
   const [currentSession, setCurrentSession] = useState({});
+  const [isSeasonsNewVisible, setIsSeasonsNewVisible] = useState(false);
 
   const [seasons, setSeasons] = useState([]);
 
@@ -24,11 +25,17 @@ export function Content() {
 
   useEffect(handleIndexSeasons, []);
 
+  const handleShowSeasonsNew = () => {
+    console.log("handleShowSeasonsNew");
+    setIsSeasonsNewVisible(true);
+  };
+
   const handleCreateSeason = (params, successCallback) => {
     console.log("handleCreateSeason", params);
     axios.post("http://localhost:3000/seasons.json", params).then((response) => {
       setSeasons([...seasons, response.data]);
       successCallback();
+      setIsSeasonsNewVisible(false);
     });
   };
 
@@ -82,6 +89,7 @@ export function Content() {
   const handleClose = () => {
     console.log("handleClose");
     setIsSessionsShowVisible(false);
+    setIsSeasonsNewVisible(false);
   };
 
   useEffect(handleIndexSessions, []);
@@ -92,9 +100,14 @@ export function Content() {
       <div className="card-body">
         <h2 className="card-title">League Information</h2>
         <p className="card-text">Day, Time, Center, Other Info</p>
+        <button onClick={handleShowSeasonsNew} className="btn btn-primary">
+          Create Season
+        </button>
       </div>
+      <Modal show={isSeasonsNewVisible} onClose={handleClose}>
+        <SeasonsNew onCreateSeason={handleCreateSeason} />
+      </Modal>
       <SeasonsIndex seasons={seasons} />
-      <SeasonsNew onCreateSeason={handleCreateSeason} />
       <SessionsNew onCreateSession={handleCreateSession} />
       <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
