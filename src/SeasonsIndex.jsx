@@ -31,7 +31,7 @@ export function SeasonsIndex(props) {
       <h2 className="card-title">Seasons</h2>
       {props.seasons.map((season) => (
         <div key={season.id}>
-          <h3>{season.name}</h3>
+          <h3 className="mt-3">{season.name}</h3>
           <p>
             Starts: {season.start_date} | Ends: {season.end_date} | {season.number_sessions} sessions
           </p>
