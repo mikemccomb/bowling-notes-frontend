@@ -9,12 +9,16 @@ export function SeasonList(props) {
   return (
     <>
       {props.seasons.map((season) => (
-        <Accordion key={season.id}>
+        <Accordion key={season.id} defaultActiveKey="0">
           <AccordionItem>
-            <AccordionHeader>{season.name}</AccordionHeader>
+            <AccordionHeader>
+              {season.name} ({season.start_date} thru {season.end_date})
+            </AccordionHeader>
             <AccordionBody>
-              Starts: {season.start_date} | Ends: {season.end_date} | {season.number_sessions} sessions
               <SessionsIndex sessions={season.league_sessions} />
+              <button>SessionsNew</button>
+              <button>Edit Season</button>
+              <button>Delete Season</button>
             </AccordionBody>
           </AccordionItem>
         </Accordion>

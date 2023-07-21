@@ -23,6 +23,10 @@ export function Content2() {
         <p className="card-text">Day, Time, Center, Other Info</p>
       </div>
       <div className="card-body">
+        <button>Edit League Info</button>
+        <button>Add Season</button>
+      </div>
+      <div className="card-body">
         <h2 className="card-title">Season Information</h2>
         <SeasonList className="card-text" seasons={seasons} />
       </div>

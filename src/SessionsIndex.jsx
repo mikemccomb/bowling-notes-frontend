@@ -18,8 +18,8 @@ export function SessionsIndex(props) {
   };
 
   return (
-    <div className="card mt-3">
-      <h3 className="card-body">League Sessions</h3>
+    <div className="card-body">
+      <h3>League Sessions</h3>
       <table className="table card-text">
         <thead>
           <tr>
