@@ -3,10 +3,12 @@ import { Modal } from "./Modal";
 import { useState } from "react";
 import { SessionsNew } from "./SessionsNew";
 import axios from "axios";
+import { SeasonEdit } from "./SeasonEdit";
 
 export function SeasonsIndex(props) {
   const [isSessionsNewVisible, setIsSessionsNewVisible] = useState(false);
   const [sessions, setSessions] = useState([]);
+  const [isSeasonEditVisible, setIsSeasonEditVisible] = useState(false);
 
   const handleShowSessionsNew = () => {
     console.log("handleShowSessionsNew");
@@ -24,6 +26,12 @@ export function SeasonsIndex(props) {
   const handleClose = () => {
     console.log("handleClose");
     setIsSessionsNewVisible(false);
+    setIsSeasonEditVisible(false);
+  };
+
+  const handleEditSeason = () => {
+    console.log("handleEditSeason");
+    setIsSeasonEditVisible(!isSeasonEditVisible);
   };
 
   return (
@@ -38,6 +46,12 @@ export function SeasonsIndex(props) {
           <button className="btn btn-primary" onClick={handleShowSessionsNew}>
             Add session
           </button>
+          <button className="btn btn-warning" onClick={handleEditSeason}>
+            Edit season
+          </button>
+          <Modal show={isSeasonEditVisible} onClose={handleClose}>
+            <SeasonEdit />
+          </Modal>
           <Modal show={isSessionsNewVisible} onClose={handleClose}>
             <SessionsNew onCreateSession={handleCreateSession} />
           </Modal>
