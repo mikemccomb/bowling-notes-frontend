@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { SessionsIndex } from "./SessionsIndex";
 import { Modal } from "./Modal";
 import { useState } from "react";
@@ -9,6 +10,8 @@ export function SeasonsIndex(props) {
   const [isSessionsNewVisible, setIsSessionsNewVisible] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [isSeasonEditVisible, setIsSeasonEditVisible] = useState(false);
+  const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
+  const [currentSession, setCurrentSession] = useState({});
 
   const handleShowSessionsNew = () => {
     console.log("handleShowSessionsNew");
@@ -21,6 +24,12 @@ export function SeasonsIndex(props) {
       setSessions([...sessions, response.data]);
       successCallback();
     });
+  };
+
+  const handleShowSession = (session) => {
+    console.log("handleShowSession", session);
+    setIsSessionsShowVisible(!isSessionsShowVisible);
+    setCurrentSession(session);
   };
 
   const handleClose = () => {
@@ -46,9 +55,7 @@ export function SeasonsIndex(props) {
           <button className="btn btn-primary" onClick={handleShowSessionsNew}>
             SessionsNew
           </button>
-          <button className="btn btn-warning" onClick={handleEditSeason}>
-            SeasonsShow
-          </button>
+          <button className="btn btn-warning">SeasonsShow</button>
           {/* This is the Edit Season button modal */}
           <Modal show={isSeasonEditVisible} onClose={handleClose}>
             <SeasonsShow />
@@ -59,7 +66,7 @@ export function SeasonsIndex(props) {
           </Modal>
 
           {/* This is the modal from Content  */}
-          <SessionsIndex sessions={season.league_sessions} />
+          <SessionsIndex sessions={season.league_sessions} onShowSession={handleShowSession} />
         </div>
       ))}
     </div>

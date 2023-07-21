@@ -1,6 +1,22 @@
+import { Modal } from "./Modal";
+import { SessionsShow } from "./SessionsShow";
+import { useState } from "react";
+
 /* eslint-disable react/prop-types */
 export function SessionsIndex(props) {
   console.log(props);
+  const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
+
+  const handleShowSession = (session) => {
+    console.log("handleShowSession", session);
+    setIsSessionsShowVisible(true);
+  };
+
+  const handleClose = () => {
+    console.log("handleClose");
+    setIsSessionsShowVisible(false);
+  };
+
   return (
     <div className="card mt-3">
       <h3 className="card-body">League Sessions</h3>
@@ -24,9 +40,12 @@ export function SessionsIndex(props) {
               <td>{session.gamethree}</td>
               <td>{session.series}</td>
               <td>
-                <button onClick={() => props.onShowSession(session)} className="btn btn-warning">
+                <button onClick={handleShowSession} className="btn btn-warning">
                   SessionsShow
                 </button>
+                <Modal show={isSessionsShowVisible} onClose={handleClose}>
+                  <SessionsShow session={session} />
+                </Modal>
               </td>
             </tr>
           </tbody>
