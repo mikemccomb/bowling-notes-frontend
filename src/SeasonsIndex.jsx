@@ -3,7 +3,7 @@ import { Modal } from "./Modal";
 import { useState } from "react";
 import { SessionsNew } from "./SessionsNew";
 import axios from "axios";
-import { SeasonEdit } from "./SeasonEdit";
+import { SeasonsShow } from "./SeasonsShow";
 
 export function SeasonsIndex(props) {
   const [isSessionsNewVisible, setIsSessionsNewVisible] = useState(false);
@@ -50,7 +50,7 @@ export function SeasonsIndex(props) {
             Edit season
           </button>
           <Modal show={isSeasonEditVisible} onClose={handleClose}>
-            <SeasonEdit />
+            <SeasonsShow />
           </Modal>
           <Modal show={isSessionsNewVisible} onClose={handleClose}>
             <SessionsNew onCreateSession={handleCreateSession} />
