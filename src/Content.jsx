@@ -92,14 +92,18 @@ export function Content() {
         <h2 className="card-title">League Information</h2>
         <p className="card-text">Day, Time, Center, Other Info</p>
         <button onClick={handleShowSeasonsNew} className="btn btn-primary">
-          Create Season
+          SeasonsNew
         </button>
       </div>
+      {/* Create season modal */}
       <Modal show={isSeasonsNewVisible} onClose={handleClose}>
         <SeasonsNew onCreateSeason={handleCreateSeason} />
       </Modal>
+      {/* Displays all seasons */}
       <SeasonsIndex seasons={seasons} />
       {/* <SessionsIndex sessions={sessions} onShowSession={handleShowSession} /> */}
+
+      {/* This needs to move to SeasonsIndex */}
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
         <SessionsShow
           session={currentSession}

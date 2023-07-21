@@ -25,7 +25,7 @@ export function SessionsIndex(props) {
               <td>{session.series}</td>
               <td>
                 <button onClick={() => props.onShowSession(session)} className="btn btn-warning">
-                  Notes
+                  SessionsShow
                 </button>
               </td>
             </tr>

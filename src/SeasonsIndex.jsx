@@ -44,17 +44,21 @@ export function SeasonsIndex(props) {
             Starts: {season.start_date} | Ends: {season.end_date} | {season.number_sessions} sessions
           </p>
           <button className="btn btn-primary" onClick={handleShowSessionsNew}>
-            Add session
+            SessionsNew
           </button>
           <button className="btn btn-warning" onClick={handleEditSeason}>
-            Edit season
+            SeasonsShow
           </button>
+          {/* This is the Edit Season button modal */}
           <Modal show={isSeasonEditVisible} onClose={handleClose}>
             <SeasonsShow />
           </Modal>
+          {/* This is the Add session button modal */}
           <Modal show={isSessionsNewVisible} onClose={handleClose}>
             <SessionsNew onCreateSession={handleCreateSession} />
           </Modal>
+
+          {/* This is the modal from Content  */}
           <SessionsIndex sessions={season.league_sessions} />
         </div>
       ))}
