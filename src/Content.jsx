@@ -99,7 +99,7 @@ export function Content() {
         <SeasonsNew onCreateSeason={handleCreateSeason} />
       </Modal>
       <SeasonsIndex seasons={seasons} />
-      <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
+      {/* <SessionsIndex sessions={sessions} onShowSession={handleShowSession} /> */}
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
         <SessionsShow
           session={currentSession}
