@@ -7,13 +7,23 @@ import { SessionsIndex } from "./SessionsIndex";
 import { useState } from "react";
 import { Modal } from "./Modal";
 import { SessionsNew } from "./SessionsNew";
+import axios from "axios";
 
 export function SeasonList(props) {
   const [isSessionsNewVisible, setIsSessionsNewVisible] = useState(false);
+  const [sessions, setSessions] = useState([]);
 
   const handleShowSessionsNew = () => {
     console.log("handleShowSessionsNew");
     setIsSessionsNewVisible(true);
+  };
+
+  const handleCreateSession = (params, successCallback) => {
+    console.log("handleCreateSession", params);
+    axios.post("http://localhost:3000/league_sessions.json", params).then((response) => {
+      setSessions([...sessions, response.data]);
+      successCallback();
+    });
   };
 
   const handleClose = () => {
@@ -33,7 +43,7 @@ export function SeasonList(props) {
               <button>Edit Season</button>
               <button>Delete Season</button>
               <Modal show={isSessionsNewVisible} onClose={handleClose}>
-                <SessionsNew />
+                <SessionsNew onCreateSession={handleCreateSession} />
               </Modal>
             </AccordionBody>
           </AccordionItem>
