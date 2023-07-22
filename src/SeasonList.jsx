@@ -8,10 +8,12 @@ import { useState } from "react";
 import { Modal } from "./Modal";
 import { SessionsNew } from "./SessionsNew";
 import axios from "axios";
+import { SeasonsEdit } from "./SeasonsEdit";
 
 export function SeasonList(props) {
   const [isSessionsNewVisible, setIsSessionsNewVisible] = useState(false);
   const [sessions, setSessions] = useState([]);
+  const [isSeasonsEditVisible, setIsSeasonsEditVisible] = useState(false);
 
   const handleShowSessionsNew = () => {
     console.log("handleShowSessionsNew");
@@ -26,8 +28,14 @@ export function SeasonList(props) {
     });
   };
 
+  const handleShowSeasonsEdit = () => {
+    console.log("handleShowSeasonsEdit");
+    setIsSeasonsEditVisible(true);
+  };
+
   const handleClose = () => {
     setIsSessionsNewVisible(false);
+    setIsSeasonsEditVisible(false);
   };
   return (
     <>
@@ -45,7 +53,10 @@ export function SeasonList(props) {
               <Modal show={isSessionsNewVisible} onClose={handleClose}>
                 <SessionsNew onCreateSession={handleCreateSession} />
               </Modal>
-              <button>Edit Season</button>
+              <button onClick={handleShowSeasonsEdit}>Edit Season</button>
+              <Modal show={isSeasonsEditVisible} onClose={handleClose}>
+                <SeasonsEdit />
+              </Modal>
               <button>Delete Season</button>
             </AccordionBody>
           </AccordionItem>
