@@ -4,17 +4,20 @@ import { useState } from "react";
 
 /* eslint-disable react/prop-types */
 export function SessionsIndex(props) {
-  console.log(props);
+  console.log("SessionsIndex", props);
   const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
+  const [currentSession, setCurrentSession] = useState({});
 
   const handleShowSession = (session) => {
     console.log("handleShowSession", session);
     setIsSessionsShowVisible(true);
+    setCurrentSession({ session });
   };
 
   const handleClose = () => {
     console.log("handleClose");
     setIsSessionsShowVisible(false);
+    setCurrentSession(currentSession);
   };
 
   return (

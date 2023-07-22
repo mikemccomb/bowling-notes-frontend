@@ -39,12 +39,14 @@ export function SeasonList(props) {
             </AccordionHeader>
             <AccordionBody>
               <SessionsIndex sessions={season.league_sessions} />
-              <button onClick={handleShowSessionsNew}>SessionsNew</button>
-              <button>Edit Season</button>
-              <button>Delete Season</button>
+              <button className="btn btn-primary" onClick={handleShowSessionsNew}>
+                SessionsNew
+              </button>
               <Modal show={isSessionsNewVisible} onClose={handleClose}>
                 <SessionsNew onCreateSession={handleCreateSession} />
               </Modal>
+              <button>Edit Season</button>
+              <button>Delete Season</button>
             </AccordionBody>
           </AccordionItem>
         </Accordion>

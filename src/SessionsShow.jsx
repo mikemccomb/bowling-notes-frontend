@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // Need to add handleSubmit; you can probably fix series in here?
 export function SessionsShow(props) {
+  console.log("SessionsShow", props);
   const [games, setGames] = useState({
     gameone: props.session.gameone,
     gametwo: props.session.gametwo,
