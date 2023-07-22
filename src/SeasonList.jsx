@@ -8,14 +8,10 @@ import { useState } from "react";
 import { Modal } from "./Modal";
 import { SessionsNew } from "./SessionsNew";
 import axios from "axios";
-import { SeasonsEdit } from "./SeasonsEdit";
 
 export function SeasonList(props) {
   const [isSessionsNewVisible, setIsSessionsNewVisible] = useState(false);
   const [sessions, setSessions] = useState([]);
-  const [isSeasonsEditVisible, setIsSeasonsEditVisible] = useState(false);
-  const [seasons, setSeasons] = useState([]);
-  const [currentSeason, setCurrentSeason] = useState({});
 
   const handleShowSessionsNew = () => {
     console.log("handleShowSessionsNew");
@@ -30,40 +26,8 @@ export function SeasonList(props) {
     });
   };
 
-  const handleShowSeasonsEdit = (season) => {
-    console.log("handleShowSeasonsEdit");
-    setIsSeasonsEditVisible(true);
-    setCurrentSeason(season);
-  };
-
-  const handleUpdateSeason = (id, params, successCallback) => {
-    console.log("handleUpdateSeason", params);
-    axios.patch(`http://localhost:3000/seasons/${id}.json`, params).then((response) => {
-      setSeasons(
-        seasons.map((season) => {
-          if (season.id === response.data.id) {
-            return response.data;
-          } else {
-            return season;
-          }
-        })
-      );
-      successCallback();
-      handleClose();
-    });
-  };
-
-  const handleDestroySeason = (season) => {
-    console.log("handleDestroySeason", season);
-    axios.delete(`http://localhost:3000/seasons/${season.id}.json`).then((response) => {
-      setSeasons(seasons.filter((s) => s.id !== season.id));
-      handleClose();
-    });
-  };
-
   const handleClose = () => {
     setIsSessionsNewVisible(false);
-    setIsSeasonsEditVisible(false);
   };
   return (
     <>
@@ -76,20 +40,11 @@ export function SeasonList(props) {
             <AccordionBody>
               <SessionsIndex sessions={season.league_sessions} />
               <button className="btn btn-primary" onClick={handleShowSessionsNew}>
-                SessionsNew
+                Add new session
               </button>
               <Modal show={isSessionsNewVisible} onClose={handleClose}>
                 <SessionsNew onCreateSession={handleCreateSession} />
               </Modal>
-              <button onClick={handleShowSeasonsEdit}>Edit Season</button>
-              <Modal show={isSeasonsEditVisible} onClose={handleClose}>
-                <SeasonsEdit
-                  season={currentSeason}
-                  onUpdateSeason={handleUpdateSeason}
-                  onDestroySeason={handleDestroySeason}
-                />
-              </Modal>
-              <button>Delete Season</button>
             </AccordionBody>
           </AccordionItem>
         </Accordion>

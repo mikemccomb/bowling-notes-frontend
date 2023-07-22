@@ -1,24 +1,6 @@
-import { Modal } from "./Modal";
-import { SessionsShow } from "./SessionsShow";
-import { useState } from "react";
-
 /* eslint-disable react/prop-types */
 export function SessionsIndex(props) {
   console.log("SessionsIndex", props);
-  const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
-  const [currentSession, setCurrentSession] = useState({});
-
-  const handleShowSession = (session) => {
-    console.log("handleShowSession", session);
-    setIsSessionsShowVisible(true);
-    setCurrentSession({ session });
-  };
-
-  const handleClose = () => {
-    console.log("handleClose");
-    setIsSessionsShowVisible(false);
-    setCurrentSession(currentSession);
-  };
 
   return (
     <div className="card-body">
@@ -31,7 +13,7 @@ export function SessionsIndex(props) {
             <th>Game 2</th>
             <th>Game 3</th>
             <th>Series</th>
-            <th></th>
+            <th>Notes</th>
           </tr>
         </thead>
         {props.sessions.map((session) => (
@@ -42,14 +24,7 @@ export function SessionsIndex(props) {
               <td>{session.gametwo}</td>
               <td>{session.gamethree}</td>
               <td>{session.series}</td>
-              <td>
-                <button onClick={handleShowSession} className="btn btn-warning">
-                  SessionsShow
-                </button>
-                <Modal show={isSessionsShowVisible} onClose={handleClose}>
-                  <SessionsShow session={session} />
-                </Modal>
-              </td>
+              <td>{session.notes}</td>
             </tr>
           </tbody>
         ))}
