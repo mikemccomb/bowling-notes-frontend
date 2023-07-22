@@ -1,80 +1,60 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { SessionsIndex } from "./SessionsIndex";
-import { SessionsNew } from "./SessionsNew";
-import { SessionsShow } from "./SessionsShow";
+import { useEffect, useState } from "react";
+import { SeasonList } from "./SeasonList";
 import { Modal } from "./Modal";
+import { SeasonsNew } from "./SeasonsNew";
 
 export function Content() {
-  const [sessions, setSessions] = useState([]);
-  const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
-  const [currentSession, setCurrentSession] = useState({});
+  const [seasons, setSeasons] = useState([]);
+  const [isSeasonsNewVisible, setIsSeasonsNewVisible] = useState(false);
 
-  const handleIndexSessions = () => {
-    console.log("handleIndexSessions");
-    axios.get("http://localhost:3000/league_sessions.json").then((response) => {
+  const handleShowSeasonsNew = () => {
+    console.log("handleShowSeasonsNew");
+    setIsSeasonsNewVisible(true);
+  };
+
+  const handleCreateSeason = (params, successCallback) => {
+    console.log("handleCreateSeason", params);
+    axios.post("http://localhost:3000/seasons.json", params).then((response) => {
+      setSeasons([...seasons, response.data]);
+      successCallback();
+      setIsSeasonsNewVisible(false);
+    });
+  };
+
+  const handleIndexSeasons = () => {
+    console.log("handleIndexSeason");
+    axios.get("http://localhost:3000/seasons.json").then((response) => {
       console.log(response.data);
-      setSessions(response.data);
-    });
-  };
-
-  const handleCreateSession = (params, successCallback) => {
-    console.log("handleCreateSession", params);
-    axios.post("http://localhost:3000/league_sessions.json", params).then((response) => {
-      setSessions([...sessions, response.data]);
-      successCallback();
-    });
-  };
-
-  const handleShowSession = (session) => {
-    console.log("handleShowSession", session);
-    setIsSessionsShowVisible(true);
-    setCurrentSession(session);
-  };
-
-  const handleUpdateSession = (id, params, successCallback) => {
-    console.log("handleUpdateSession", params);
-    axios.patch(`http://localhost:3000/league_sessions/${id}.json`, params).then((response) => {
-      setSessions(
-        sessions.map((session) => {
-          if (session.id === response.data.id) {
-            return response.data;
-          } else {
-            return session;
-          }
-        })
-      );
-      successCallback();
-      handleClose();
-    });
-  };
-
-  const handleDestroySession = (session) => {
-    console.log("handleDestroySession", session);
-    axios.delete(`http://localhost:3000/league_sessions/${session.id}.json`).then((response) => {
-      setSessions(sessions.filter((s) => s.id !== session.id));
-      handleClose();
+      setSeasons(response.data);
     });
   };
 
   const handleClose = () => {
-    console.log("handleClose");
-    setIsSessionsShowVisible(false);
+    setIsSeasonsNewVisible(false);
   };
 
-  useEffect(handleIndexSessions, []);
+  useEffect(handleIndexSeasons, []);
 
   return (
-    <div>
-      <SessionsNew onCreateSession={handleCreateSession} />
-      <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
-      <Modal show={isSessionsShowVisible} onClose={handleClose}>
-        <SessionsShow
-          session={currentSession}
-          onUpdateSession={handleUpdateSession}
-          onDestroySession={handleDestroySession}
-        />
-      </Modal>
+    <div className="card mt-3">
+      <h1 className="card-header">League Name</h1>
+      <div className="card-body">
+        <h2 className="card-title">League Information</h2>
+        <p className="card-text">Day, Time, Center, Other Info</p>
+      </div>
+      <div className="card-body">
+        <button className="btn btn-primary" onClick={handleShowSeasonsNew}>
+          Add Season
+        </button>
+        <Modal show={isSeasonsNewVisible} onClose={handleClose}>
+          <SeasonsNew onCreateSeason={handleCreateSeason} />
+        </Modal>
+      </div>
+      <div className="card-body">
+        <h2 className="card-title">Season Information</h2>
+        <SeasonList className="card-text" seasons={seasons} />
+      </div>
     </div>
   );
 }

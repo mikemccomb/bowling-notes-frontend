@@ -1,14 +1,10 @@
 /* eslint-disable react/prop-types */
 export function SessionsIndex(props) {
-  console.log(props);
+  console.log("SessionsIndex", props);
+
   return (
-    <div className="card mt-3">
-      <h1 className="card-header">League Name</h1>
-      <div className="card-body">
-        <h3 className="card-title">League Information</h3>
-        <p className="card-text">Day, Time, Center, Other Info</p>
-      </div>
-      <h3 className="card-body">League Sessions</h3>
+    <div className="card-body">
+      <h3>League Sessions</h3>
       <table className="table card-text">
         <thead>
           <tr>
@@ -17,7 +13,7 @@ export function SessionsIndex(props) {
             <th>Game 2</th>
             <th>Game 3</th>
             <th>Series</th>
-            <th></th>
+            <th>Notes</th>
           </tr>
         </thead>
         {props.sessions.map((session) => (
@@ -28,11 +24,7 @@ export function SessionsIndex(props) {
               <td>{session.gametwo}</td>
               <td>{session.gamethree}</td>
               <td>{session.series}</td>
-              <td>
-                <button onClick={() => props.onShowSession(session)} className="btn btn-warning">
-                  Notes
-                </button>
-              </td>
+              <td>{session.notes}</td>
             </tr>
           </tbody>
         ))}

@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
 export function SessionsNew(props) {
+  console.log("SessionsNew", props);
   const [games, setGames] = useState({ gameone: 0, gametwo: 0, gamethree: 0 });
 
   const updateGame = (e) => {
@@ -68,6 +70,14 @@ export function SessionsNew(props) {
             </td>
             <td>
               <input name="notes" type="textarea" defaultValue={""} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Season:</label>
+            </td>
+            <td>
+              <input name="season_id" type="number" />
             </td>
           </tr>
         </table>
