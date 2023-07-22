@@ -1,9 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { SeasonList } from "./SeasonList";
+import { Modal } from "./Modal";
+import { SeasonsNew } from "./SeasonsNew";
 
 export function Content2() {
   const [seasons, setSeasons] = useState([]);
+  const [isSeasonsNewVisible, setIsSeasonsNewVisible] = useState(false);
+
+  const handleShowSeasonsNew = () => {
+    console.log("handleShowSeasonsNew");
+    setIsSeasonsNewVisible(true);
+  };
+
+  const handleCreateSeason = (params, successCallback) => {
+    console.log("handleCreateSeason", params);
+    axios.post("http://localhost:3000/seasons.json", params).then((response) => {
+      setSeasons([...seasons, response.data]);
+      successCallback();
+      setIsSeasonsNewVisible(false);
+    });
+  };
 
   const handleIndexSeasons = () => {
     console.log("handleIndexSeason");
@@ -11,6 +28,10 @@ export function Content2() {
       console.log(response.data);
       setSeasons(response.data);
     });
+  };
+
+  const handleClose = () => {
+    setIsSeasonsNewVisible(false);
   };
 
   useEffect(handleIndexSeasons, []);
@@ -24,7 +45,12 @@ export function Content2() {
       </div>
       <div className="card-body">
         <button>Edit League Info</button>
-        <button>Add Season</button>
+        <button className="btn btn-primary" onClick={handleShowSeasonsNew}>
+          Add Season
+        </button>
+        <Modal show={isSeasonsNewVisible} onClose={handleClose}>
+          <SeasonsNew onCreateSeason={handleCreateSeason} />
+        </Modal>
       </div>
       <div className="card-body">
         <h2 className="card-title">Season Information</h2>
