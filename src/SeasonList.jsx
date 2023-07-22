@@ -14,6 +14,8 @@ export function SeasonList(props) {
   const [isSessionsNewVisible, setIsSessionsNewVisible] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [isSeasonsEditVisible, setIsSeasonsEditVisible] = useState(false);
+  const [seasons, setSeasons] = useState([]);
+  const [currentSeason, setCurrentSeason] = useState({});
 
   const handleShowSessionsNew = () => {
     console.log("handleShowSessionsNew");
@@ -28,9 +30,35 @@ export function SeasonList(props) {
     });
   };
 
-  const handleShowSeasonsEdit = () => {
+  const handleShowSeasonsEdit = (season) => {
     console.log("handleShowSeasonsEdit");
     setIsSeasonsEditVisible(true);
+    setCurrentSeason(season);
+  };
+
+  const handleUpdateSeason = (id, params, successCallback) => {
+    console.log("handleUpdateSeason", params);
+    axios.patch(`http://localhost:3000/seasons/${id}.json`, params).then((response) => {
+      setSeasons(
+        seasons.map((season) => {
+          if (season.id === response.data.id) {
+            return response.data;
+          } else {
+            return season;
+          }
+        })
+      );
+      successCallback();
+      handleClose();
+    });
+  };
+
+  const handleDestroySeason = (season) => {
+    console.log("handleDestroySeason", season);
+    axios.delete(`http://localhost:3000/seasons/${season.id}.json`).then((response) => {
+      setSeasons(seasons.filter((s) => s.id !== season.id));
+      handleClose();
+    });
   };
 
   const handleClose = () => {
@@ -55,7 +83,11 @@ export function SeasonList(props) {
               </Modal>
               <button onClick={handleShowSeasonsEdit}>Edit Season</button>
               <Modal show={isSeasonsEditVisible} onClose={handleClose}>
-                <SeasonsEdit />
+                <SeasonsEdit
+                  season={currentSeason}
+                  onUpdateSeason={handleUpdateSeason}
+                  onDestroySeason={handleDestroySeason}
+                />
               </Modal>
               <button>Delete Season</button>
             </AccordionBody>
