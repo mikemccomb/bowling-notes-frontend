@@ -32,6 +32,31 @@ export function SessionsContent() {
     });
   };
 
+  const handleUpdateSession = (id, params, successCallback) => {
+    console.log("handleUpdatePhoto", params);
+    axios.patch(`http://localhost:3000/league_sessions/${id}.json`, params).then((response) => {
+      setSessions(
+        sessions.map((session) => {
+          if (session.id === response.data.id) {
+            return response.data;
+          } else {
+            return session;
+          }
+        })
+      );
+      successCallback();
+      handleClose();
+    });
+  };
+
+  const handleDestroySession = (session) => {
+    console.log("handleDestroySession", session);
+    axios.delete(`http://localhost:3000/league_sessions/${session.id}.json`).then((response) => {
+      setSessions(sessions.filter((s) => s.id !== session.id));
+      handleClose();
+    });
+  };
+
   const handleClose = () => {
     console.log("handleClose");
     setIsSessionsShowVisible(false);
@@ -44,7 +69,11 @@ export function SessionsContent() {
       <SessionsNew onCreateSession={handleCreateSession} />
       <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
-        <SessionsShow session={currentSession} />
+        <SessionsShow
+          session={currentSession}
+          onUpdateSession={handleUpdateSession}
+          onDestroySession={handleDestroySession}
+        />
       </Modal>
     </div>
   );
