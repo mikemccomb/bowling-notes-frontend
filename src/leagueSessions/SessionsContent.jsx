@@ -2,9 +2,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { SessionsIndex } from "./SessionsIndex";
 import { SessionsNew } from "./SessionsNew";
+import { SessionsShow } from "./SessionsShow";
+import { Modal } from "../Modal";
 
 export function SessionsContent() {
   const [sessions, setSessions] = useState([]);
+  const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
+  const [currentSession, setCurrentSession] = useState({});
 
   const handleIndexSessions = () => {
     console.log("handleIndexSessions");
@@ -12,6 +16,12 @@ export function SessionsContent() {
       console.log(response.data);
       setSessions(response.data);
     });
+  };
+
+  const handleShowSession = (session) => {
+    console.log("handleShowSession", session);
+    setIsSessionsShowVisible(true);
+    setCurrentSession(session);
   };
 
   const handleCreateSession = (params, successCallback) => {
@@ -22,12 +32,20 @@ export function SessionsContent() {
     });
   };
 
+  const handleClose = () => {
+    console.log("handleClose");
+    setIsSessionsShowVisible(false);
+  };
+
   useEffect(handleIndexSessions, []);
 
   return (
     <div>
       <SessionsNew onCreateSession={handleCreateSession} />
-      <SessionsIndex sessions={sessions} />
+      <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
+      <Modal show={isSessionsShowVisible} onClose={handleClose}>
+        <SessionsShow session={currentSession} />
+      </Modal>
     </div>
   );
 }

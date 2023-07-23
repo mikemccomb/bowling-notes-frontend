@@ -11,6 +11,7 @@ export function SessionsIndex(props) {
             <th>Game 3</th>
             <th>Series</th>
             <th>Notes</th>
+            <th></th>
           </tr>
         </thead>
         {props.sessions.map((session) => (
@@ -22,6 +23,9 @@ export function SessionsIndex(props) {
               <td>{session.gamethree}</td>
               <td>{session.series}</td>
               <td>{session.notes}</td>
+              <td>
+                <button onClick={() => props.onShowSession(session)}>More</button>
+              </td>
             </tr>
           </tbody>
         ))}
