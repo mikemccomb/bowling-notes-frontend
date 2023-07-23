@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { SeasonList } from "./SeasonList";
+import { SeasonList } from "./seasons/SeasonList";
 import { Modal } from "./Modal";
-import { SeasonsNew } from "./SeasonsNew";
+import { SeasonsNew } from "./seasons/SeasonsNew";
 
 export function Content() {
   const [seasons, setSeasons] = useState([]);

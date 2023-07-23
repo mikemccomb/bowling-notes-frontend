@@ -3,10 +3,10 @@ import { Accordion } from "react-bootstrap";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import AccordionHeader from "react-bootstrap/esm/AccordionHeader";
 import AccordionItem from "react-bootstrap/esm/AccordionItem";
-import { SessionsIndex } from "./SessionsIndex";
+import { SessionsIndex } from "../leagueSessions/SessionsIndex";
 import { useState } from "react";
-import { Modal } from "./Modal";
-import { SessionsNew } from "./SessionsNew";
+import { Modal } from "../Modal";
+import { SessionsNew } from "../leagueSessions/SessionsNew";
 import axios from "axios";
 
 export function SeasonList(props) {
