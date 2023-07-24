@@ -4,6 +4,7 @@ import axios from "axios";
 import { SeasonsNew } from "./SeasonsNew";
 import { Modal } from "../Modal";
 import { SeasonsShow } from "./SeasonsShow";
+import { SessionsIndex } from "../leagueSessions/SessionsIndex";
 
 export function SeasonsContent() {
   const [seasons, setSeasons] = useState([]);
@@ -44,7 +45,8 @@ export function SeasonsContent() {
       <SeasonsNew onCreateSeason={handleCreateSeason} />
       <SeasonsIndex seasons={seasons} onShowSeason={handleShowSeason} />
       <Modal show={isSeasonsShowVisible} onClose={handleClose}>
-        <SeasonsShow season={currentSeason} />
+        <SessionsIndex season={currentSeason} />
+        {/* <SeasonsShow season={currentSeason} /> */}
       </Modal>
     </div>
   );

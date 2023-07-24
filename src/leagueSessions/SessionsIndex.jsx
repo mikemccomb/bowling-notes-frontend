@@ -14,7 +14,7 @@ export function SessionsIndex(props) {
             <th></th>
           </tr>
         </thead>
-        {props.sessions.map((session) => (
+        {props.season.league_sessions.map((session) => (
           <tbody key={session.id}>
             <tr>
               <th scope="row">{session.date}</th>
