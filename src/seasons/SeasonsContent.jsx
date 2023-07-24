@@ -44,10 +44,10 @@ export function SeasonsContent() {
     <div>
       <SeasonsNew onCreateSeason={handleCreateSeason} />
       <SeasonsIndex seasons={seasons} onShowSeason={handleShowSeason} />
-      <Modal show={isSeasonsShowVisible} onClose={handleClose}>
-        <SessionsIndex season={currentSeason} />
-        {/* <SeasonsShow season={currentSeason} /> */}
-      </Modal>
+      {/* <Modal show={isSeasonsShowVisible} onClose={handleClose}> */}
+      {/* <SessionsIndex season={currentSeason} /> */}
+      {/* <SeasonsShow season={currentSeason} /> */}
+      {/* </Modal> */}
     </div>
   );
 }

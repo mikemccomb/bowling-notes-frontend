@@ -2,6 +2,7 @@ import { Accordion } from "react-bootstrap";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import AccordionHeader from "react-bootstrap/esm/AccordionHeader";
 import AccordionItem from "react-bootstrap/esm/AccordionItem";
+import { SessionsIndex } from "../leagueSessions/SessionsIndex";
 
 export function SeasonsIndex(props) {
   return (
@@ -14,7 +15,7 @@ export function SeasonsIndex(props) {
               {season.name} ({season.start_date} thru {season.end_date})
             </AccordionHeader>
             <AccordionBody>
-              <p>CONTENT</p>
+              <SessionsIndex season={season} />
             </AccordionBody>
           </AccordionItem>
         </Accordion>
