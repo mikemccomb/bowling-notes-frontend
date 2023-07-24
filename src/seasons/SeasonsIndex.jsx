@@ -9,6 +9,7 @@ export function SeasonsIndex(props) {
             {season.start_date} thru {season.end_date}
           </p>
           <p>{season.number_sessions} sessions</p>
+          <button onClick={() => props.onShowSeason(season)}>Show Season</button>
         </div>
       ))}
     </div>
