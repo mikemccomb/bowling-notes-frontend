@@ -1,12 +1,23 @@
+import { useState, useEffect } from "react";
+import { SeasonsIndex } from "./SeasonsIndex";
+import axios from "axios";
+
 export function SeasonsContent() {
-  const seasons = [
-    { id: 1, name: "League 1", start_date: "2023-01-02", end_date: "2023-12-31", number_sessions: 12 },
-    { id: 2, name: "League 2", start_date: "2023-01-02", end_date: "2023-12-31", number_sessions: 12 },
-  ];
+  const [seasons, setSeasons] = useState([]);
+
+  const handleIndexSeasons = () => {
+    console.log("handleIndexSeasons");
+    axios.get("http://localhost:3000/seasons.json").then((response) => {
+      console.log(response.data);
+      setSeasons(response.data);
+    });
+  };
+
+  useEffect(handleIndexSeasons, []);
 
   return (
     <div>
-      <SeasonsContent seasons={seasons} />
+      <SeasonsIndex seasons={seasons} />
     </div>
   );
 }
