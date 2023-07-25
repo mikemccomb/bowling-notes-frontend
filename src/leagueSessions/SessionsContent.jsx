@@ -7,6 +7,7 @@ import { Modal } from "../Modal";
 
 export function SessionsContent() {
   const [sessions, setSessions] = useState([]);
+  // isSessions and currentSession goes to SeasonIndex
   const [isSessionsShowVisible, setIsSessionsShowVisible] = useState(false);
   const [currentSession, setCurrentSession] = useState({});
 
@@ -18,6 +19,7 @@ export function SessionsContent() {
     });
   };
 
+  // This goes to SeasonsIndex to pass to SessionsIndex
   const handleShowSession = (session) => {
     console.log("handleShowSession", session);
     setIsSessionsShowVisible(true);
@@ -57,6 +59,7 @@ export function SessionsContent() {
     });
   };
 
+  // Need for Modal
   const handleClose = () => {
     console.log("handleClose");
     setIsSessionsShowVisible(false);
@@ -68,6 +71,7 @@ export function SessionsContent() {
     <div>
       <SessionsNew onCreateSession={handleCreateSession} />
       <SessionsIndex sessions={sessions} onShowSession={handleShowSession} />
+      {/* Modal needs to move to Sessions Index */}
       <Modal show={isSessionsShowVisible} onClose={handleClose}>
         <SessionsShow
           session={currentSession}

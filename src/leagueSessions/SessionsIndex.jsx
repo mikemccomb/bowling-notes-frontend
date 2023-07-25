@@ -1,7 +1,12 @@
+/* eslint-disable react/prop-types */
+// import { Modal } from "../Modal";
+// import { SessionsShow } from "./SessionsShow";
+
 export function SessionsIndex(props) {
   return (
     <div className="card-body">
       <h3>League Sessions</h3>
+
       <table className="table card-text">
         <thead>
           <tr>
@@ -15,19 +20,28 @@ export function SessionsIndex(props) {
           </tr>
         </thead>
         {props.season.league_sessions.map((session) => (
-          <tbody key={session.id}>
-            <tr>
-              <th scope="row">{session.date}</th>
-              <td>{session.gameone}</td>
-              <td>{session.gametwo}</td>
-              <td>{session.gamethree}</td>
-              <td>{session.series}</td>
-              <td>{session.notes}</td>
-              <td>
-                <button onClick={() => props.onShowSession(session)}>More</button>
-              </td>
-            </tr>
-          </tbody>
+          <>
+            <tbody key={session.id}>
+              <tr>
+                <th scope="row">{session.date}</th>
+                <td>{session.gameone}</td>
+                <td>{session.gametwo}</td>
+                <td>{session.gamethree}</td>
+                <td>{session.series}</td>
+                <td>{session.notes}</td>
+                <td>
+                  <button onClick={() => props.onShowSession(session)}>More</button>
+                </td>
+              </tr>
+            </tbody>
+            {/* <Modal show={props.isSessionsShowVisible} onClose={props.handleClose}>
+              <SessionsShow
+                session={props.currentSession}
+                // onUpdateSession={handleUpdateSession}
+                // onDestroySession={handleDestroySession}
+              />
+            </Modal> */}
+          </>
         ))}
       </table>
     </div>
