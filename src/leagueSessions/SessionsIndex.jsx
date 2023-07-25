@@ -2,7 +2,16 @@
 // import { Modal } from "../Modal";
 // import { SessionsShow } from "./SessionsShow";
 
+import { useState } from "react";
+
 export function SessionsIndex(props) {
+  const [isSessionEditOn, setIsSessionEditOn] = useState(false);
+
+  const handleSessionEdit = (session) => {
+    console.log("handleSessionEdit", session);
+    setIsSessionEditOn(true);
+  };
+
   return (
     <div className="card-body">
       <h3>League Sessions</h3>
@@ -30,7 +39,8 @@ export function SessionsIndex(props) {
                 <td>{session.series}</td>
                 <td>{session.notes}</td>
                 <td>
-                  <button onClick={() => props.onShowSession(session)}>More</button>
+                  {/* <button onClick={() => props.onShowSession(session)}>Edit</button> */}
+                  <button onClick={() => handleSessionEdit(session)}>Edit</button>
                 </td>
               </tr>
             </tbody>
