@@ -1,15 +1,22 @@
 /* eslint-disable react/prop-types */
-// import { Modal } from "../Modal";
+import { Modal } from "../Modal";
 // import { SessionsShow } from "./SessionsShow";
 
 import { useState } from "react";
+import { SessionsEdit } from "./SessionsEdit";
 
 export function SessionsIndex(props) {
   const [isSessionEditOn, setIsSessionEditOn] = useState(false);
+  const [editSession, setEditSession] = useState({});
 
   const handleSessionEdit = (session) => {
     console.log("handleSessionEdit", session);
     setIsSessionEditOn(true);
+    setEditSession(session);
+  };
+
+  const handleClose = () => {
+    setIsSessionEditOn(false);
   };
 
   return (
@@ -54,6 +61,9 @@ export function SessionsIndex(props) {
           </>
         ))}
       </table>
+      <Modal show={isSessionEditOn} onClose={handleClose}>
+        <SessionsEdit session={editSession} />
+      </Modal>
     </div>
   );
 }
