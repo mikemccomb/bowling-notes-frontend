@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 export function SeasonsShow(props) {
   console.log("SeasonsShow", props);
   return (
