@@ -4,15 +4,34 @@ import { Modal } from "../Modal";
 
 import { useState } from "react";
 import { SessionsEdit } from "./SessionsEdit";
+import axios from "axios";
 
 export function SessionsIndex(props) {
+  const [sessions, setSessions] = useState([]);
   const [isSessionEditOn, setIsSessionEditOn] = useState(false);
   const [editSession, setEditSession] = useState({});
 
-  const handleSessionEdit = (session) => {
-    console.log("handleSessionEdit", session);
+  const handleSessionEditor = (session) => {
+    console.log("handleSessionEditor", session);
     setIsSessionEditOn(true);
     setEditSession(session);
+  };
+
+  const handleUpdateSession = (id, params, successCallback) => {
+    console.log("handleUpdateSession", params);
+    axios.patch(`http://localhost:3000/league_sessions/${id}.json`, params).then((response) => {
+      setSessions(
+        sessions.map((session) => {
+          if (session.id === response.data.id) {
+            return response.data;
+          } else {
+            return session;
+          }
+        })
+      );
+      successCallback();
+      handleClose();
+    });
   };
 
   const handleClose = () => {
@@ -47,7 +66,7 @@ export function SessionsIndex(props) {
                 <td>{session.notes}</td>
                 <td>
                   {/* <button onClick={() => props.onShowSession(session)}>Edit</button> */}
-                  <button onClick={() => handleSessionEdit(session)}>Edit</button>
+                  <button onClick={() => handleSessionEditor(session)}>Edit</button>
                 </td>
               </tr>
             </tbody>
@@ -62,7 +81,7 @@ export function SessionsIndex(props) {
         ))}
       </table>
       <Modal show={isSessionEditOn} onClose={handleClose}>
-        <SessionsEdit session={editSession} />
+        <SessionsEdit session={editSession} onUpdateSession={handleUpdateSession} />
       </Modal>
     </div>
   );
