@@ -87,7 +87,6 @@ export function SessionsIndex(props) {
                 <td>{session.series}</td>
                 <td>{session.notes}</td>
                 <td>
-                  {/* <button onClick={() => props.onShowSession(session)}>Edit</button> */}
                   <button className="btn btn-warning" onClick={() => handleSessionEditor(session)}>
                     Edit
                   </button>
