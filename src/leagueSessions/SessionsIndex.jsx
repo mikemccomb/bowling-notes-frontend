@@ -20,7 +20,7 @@ export function SessionsIndex(props) {
   };
 
   return (
-    <div className="card-body">
+    <div>
       <h3>League Sessions</h3>
 
       <table className="table card-text">

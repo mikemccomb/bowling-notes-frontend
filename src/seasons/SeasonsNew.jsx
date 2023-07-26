@@ -6,8 +6,8 @@ export function SeasonsNew(props) {
   };
 
   return (
-    <div>
-      <h1>New Season</h1>
+    <div className="card mt-3">
+      <h1 className="card-header">New Season</h1>
       <form className="form-control" onSubmit={handleSubmit}>
         <table className="table">
           <tbody>

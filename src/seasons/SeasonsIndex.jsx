@@ -16,8 +16,8 @@ export function SeasonsIndex(props) {
   };
 
   return (
-    <div>
-      <h1>All Seasons</h1>
+    <div className="card body">
+      <h1 className="card-header">All Seasons</h1>
       {props.seasons.map((season) => (
         <Accordion key={season.id} defaultActiveKey={0}>
           <AccordionItem>
