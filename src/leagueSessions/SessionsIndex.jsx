@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Modal } from "../Modal";
-// import { SessionsShow } from "./SessionsShow";
-
 import { useState } from "react";
 import { SessionsEdit } from "./SessionsEdit";
 import axios from "axios";
@@ -79,13 +77,6 @@ export function SessionsIndex(props) {
                 </td>
               </tr>
             </tbody>
-            {/* <Modal show={props.isSessionsShowVisible} onClose={props.handleClose}>
-              <SessionsShow
-                session={props.currentSession}
-                // onUpdateSession={handleUpdateSession}
-                // onDestroySession={handleDestroySession}
-              />
-            </Modal> */}
           </>
         ))}
       </table>
@@ -96,6 +87,7 @@ export function SessionsIndex(props) {
           onDestroySession={handleDestroySession}
         />
       </Modal>
+      <button onClick={() => console.log("Add session", props.season.id)}>Add session</button>
     </div>
   );
 }
