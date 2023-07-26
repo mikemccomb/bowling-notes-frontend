@@ -8,11 +8,16 @@ export function SessionsIndex(props) {
   const [sessions, setSessions] = useState([]);
   const [isSessionEditOn, setIsSessionEditOn] = useState(false);
   const [editSession, setEditSession] = useState({});
+  const [isNewSessionOn, setIsNewSessionOn] = useState(false);
 
   const handleSessionEditor = (session) => {
     console.log("handleSessionEditor", session);
     setIsSessionEditOn(true);
     setEditSession(session);
+  };
+
+  const handleNewSession = () => {
+    setIsNewSessionOn(true);
   };
 
   const handleUpdateSession = (id, params, successCallback) => {
@@ -43,6 +48,7 @@ export function SessionsIndex(props) {
 
   const handleClose = () => {
     setIsSessionEditOn(false);
+    setIsNewSessionOn(false);
   };
 
   return (
@@ -87,7 +93,11 @@ export function SessionsIndex(props) {
           onDestroySession={handleDestroySession}
         />
       </Modal>
-      <button onClick={() => console.log("Add session", props.season.id)}>Add session</button>
+      <button onClick={handleNewSession}>Add session</button>
+      <Modal show={isNewSessionOn} onClose={handleClose}>
+        <h1>New Session</h1>
+        <p>Season Id: {props.season.id}</p>
+      </Modal>
     </div>
   );
 }
