@@ -21,6 +21,13 @@ export function SessionsEdit(props) {
     props.onUpdateSession(props.session.id, params, () => event.target.reset());
   };
 
+  const handleClick = () => {
+    let text = "Are you sure you want to delete your session?";
+    if (confirm(text) == true) {
+      props.onDestroySession(props.session);
+    }
+  };
+
   return (
     <div>
       <h1>Edit Session</h1>
@@ -103,7 +110,12 @@ export function SessionsEdit(props) {
             </tr>
           </tbody>
         </table>
-        <button type="submit">Update Session</button>
+        <button type="submit" className="btn btn-success">
+          Update Session
+        </button>
+        <button className="btn btn-danger" onClick={handleClick}>
+          Delete Session
+        </button>
       </form>
     </div>
   );

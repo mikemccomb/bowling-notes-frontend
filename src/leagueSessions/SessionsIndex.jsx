@@ -31,6 +31,15 @@ export function SessionsIndex(props) {
       );
       successCallback();
       handleClose();
+      window.location.reload(false);
+    });
+  };
+
+  const handleDestroySession = (session) => {
+    console.log("handleDestroySession", session);
+    axios.delete(`http://localhost:3000/league_sessions/${session.id}.json`).then((response) => {
+      setSessions(sessions.filter((s) => s.id !== session.id));
+      handleClose();
     });
   };
 
@@ -81,7 +90,11 @@ export function SessionsIndex(props) {
         ))}
       </table>
       <Modal show={isSessionEditOn} onClose={handleClose}>
-        <SessionsEdit session={editSession} onUpdateSession={handleUpdateSession} />
+        <SessionsEdit
+          session={editSession}
+          onUpdateSession={handleUpdateSession}
+          onDestroySession={handleDestroySession}
+        />
       </Modal>
     </div>
   );
