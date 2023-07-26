@@ -26,6 +26,7 @@ export function SessionsEdit(props) {
     if (confirm(text) == true) {
       props.onDestroySession(props.session);
     }
+    window.location.reload(false);
   };
 
   return (

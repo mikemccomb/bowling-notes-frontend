@@ -88,7 +88,9 @@ export function SessionsIndex(props) {
                 <td>{session.notes}</td>
                 <td>
                   {/* <button onClick={() => props.onShowSession(session)}>Edit</button> */}
-                  <button onClick={() => handleSessionEditor(session)}>Edit</button>
+                  <button className="btn btn-warning" onClick={() => handleSessionEditor(session)}>
+                    Edit
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -102,11 +104,11 @@ export function SessionsIndex(props) {
           onDestroySession={handleDestroySession}
         />
       </Modal>
-      <button onClick={handleNewSession}>Add session</button>
+      <button className="btn btn-success" onClick={handleNewSession}>
+        Add session
+      </button>
       <Modal show={isNewSessionOn} onClose={handleClose}>
         <SessionsNew onCreateSession={handleCreateSession} season_id={props.season.id} />
-        {/* <h1>New Session</h1>
-        <p>Season Id: {props.season.id}</p> */}
       </Modal>
     </div>
   );
