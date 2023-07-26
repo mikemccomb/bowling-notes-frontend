@@ -77,7 +77,7 @@ export function SessionsNew(props) {
                 <label>Season:</label>
               </td>
               <td>
-                <input name="season_id" type="number" />
+                <input name="season_id" type="number" defaultValue={props.season_id} />
               </td>
             </tr>
           </tbody>

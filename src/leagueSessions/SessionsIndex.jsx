@@ -3,6 +3,7 @@ import { Modal } from "../Modal";
 import { useState } from "react";
 import { SessionsEdit } from "./SessionsEdit";
 import axios from "axios";
+import { SessionsNew } from "./SessionsNew";
 
 export function SessionsIndex(props) {
   const [sessions, setSessions] = useState([]);
@@ -18,6 +19,14 @@ export function SessionsIndex(props) {
 
   const handleNewSession = () => {
     setIsNewSessionOn(true);
+  };
+
+  const handleCreateSession = (params, successCallback) => {
+    console.log("handleCreateSession", params);
+    axios.post("http://localhost:3000/league_sessions.json", params).then((response) => {
+      setSessions([...sessions, response.data]);
+      successCallback();
+    });
   };
 
   const handleUpdateSession = (id, params, successCallback) => {
@@ -95,8 +104,9 @@ export function SessionsIndex(props) {
       </Modal>
       <button onClick={handleNewSession}>Add session</button>
       <Modal show={isNewSessionOn} onClose={handleClose}>
-        <h1>New Session</h1>
-        <p>Season Id: {props.season.id}</p>
+        <SessionsNew onCreateSession={handleCreateSession} season_id={props.season.id} />
+        {/* <h1>New Session</h1>
+        <p>Season Id: {props.season.id}</p> */}
       </Modal>
     </div>
   );
