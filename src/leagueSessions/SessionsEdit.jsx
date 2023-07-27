@@ -1,18 +1,18 @@
 import { useState } from "react";
 /* eslint-disable react/prop-types */
 
-export function SessionsShow(props) {
-  console.log("SessionsShow", props);
+export function SessionsEdit(props) {
+  console.log("SessionsEdit", props);
+
   const [games, setGames] = useState({
     gameone: props.session.gameone,
     gametwo: props.session.gametwo,
     gamethree: props.session.gamethree,
   });
-  const [isSessionEditActive, setIsSessionEditActive] = useState(false);
 
-  const updateGame = (e) => {
-    const game = e.target.name;
-    setGames((existingValues) => ({ ...existingValues, [game]: +e.target.value }));
+  const updateGame = (event) => {
+    const game = event.target.name;
+    setGames((existingValues) => ({ ...existingValues, [game]: +event.target.value }));
   };
 
   const handleSubmit = (event) => {
@@ -22,26 +22,25 @@ export function SessionsShow(props) {
   };
 
   const handleClick = () => {
-    props.onDestroySession(props.session);
+    let text = "Are you sure you want to delete your session?";
+    if (confirm(text) == true) {
+      props.onDestroySession(props.session);
+    }
+    window.location.reload(false);
   };
 
-  const handleEditSession = () => {
-    console.log("handleEditSession");
-    setIsSessionEditActive(!isSessionEditActive);
-  };
-
-  if (isSessionEditActive) {
-    return (
-      <div>
-        <h1>Session Information</h1>
-        <form className="form-control" onSubmit={handleSubmit}>
-          <table className="table">
+  return (
+    <div>
+      <h1>Edit Session</h1>
+      <form className="form-control" onSubmit={handleSubmit}>
+        <table className="table">
+          <tbody>
             <tr>
               <td>
                 <label>Date:</label>
               </td>
               <td>
-                <input name="date" type="date" defaultValue={props.session.date} />
+                <input name="date" type="date" defaultValue={props.session.date}></input>
               </td>
             </tr>
             <tr>
@@ -50,12 +49,12 @@ export function SessionsShow(props) {
               </td>
               <td>
                 <input
-                  maxLength="3"
                   name="gameone"
                   type="number"
+                  maxLength="3"
                   defaultValue={props.session.gameone}
                   onChange={updateGame}
-                />
+                ></input>
               </td>
             </tr>
             <tr>
@@ -64,12 +63,12 @@ export function SessionsShow(props) {
               </td>
               <td>
                 <input
-                  minLength="3"
                   name="gametwo"
                   type="number"
+                  maxLength="3"
                   defaultValue={props.session.gametwo}
                   onChange={updateGame}
-                />
+                ></input>
               </td>
             </tr>
             <tr>
@@ -78,12 +77,12 @@ export function SessionsShow(props) {
               </td>
               <td>
                 <input
-                  minLength="3"
                   name="gamethree"
                   type="number"
+                  maxLength="3"
                   defaultValue={props.session.gamethree}
                   onChange={updateGame}
-                />
+                ></input>
               </td>
             </tr>
             <tr>
@@ -102,51 +101,23 @@ export function SessionsShow(props) {
                 <input name="notes" type="textarea" defaultValue={props.session.notes} />
               </td>
             </tr>
-          </table>
-          <div className="container-fluid">
-            <button className="btn btn-success" type="submit">
-              Update Scores
-            </button>
-            <button className="btn btn-danger" onClick={handleClick}>
-              Delete session
-            </button>
-            <button className="btn btn-secondary" onClick={handleEditSession}>
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <h1>Session Information</h1>
-        <table className="table">
-          <thead>
             <tr>
-              <th scope="col-4">Date</th>
-              <th scope="col-2">Game 1</th>
-              <th scope="col-2">Game 2</th>
-              <th scope="col-2">Game 3</th>
-              <th scope="col-2">Series</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">{props.session.date}</th>
-              <td>{props.session.gameone}</td>
-              <td>{props.session.gametwo}</td>
-              <td>{props.session.gamethree}</td>
-              <td>{props.session.series}</td>
+              <td>
+                <label>Season:</label>
+              </td>
+              <td>
+                <input name="season_id" type="number" defaultValue={props.session.season_id} />
+              </td>
             </tr>
           </tbody>
         </table>
-        <h3>Notes</h3>
-        <p>{props.session.notes}</p>
-        <button className="btn btn-secondary" onClick={handleEditSession}>
-          Edit Session
+        <button type="submit" className="btn btn-success">
+          Update Session
         </button>
-      </div>
-    );
-  }
+        <button className="btn btn-danger" onClick={handleClick}>
+          Delete Session
+        </button>
+      </form>
+    </div>
+  );
 }
