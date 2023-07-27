@@ -4,12 +4,19 @@ import { useState } from "react";
 import { SessionsEdit } from "./SessionsEdit";
 import axios from "axios";
 import { SessionsNew } from "./SessionsNew";
+import { SeasonEdit } from "../seasons/SeasonEdit";
 
 export function SessionsIndex(props) {
   const [sessions, setSessions] = useState([]);
   const [isSessionEditOn, setIsSessionEditOn] = useState(false);
   const [editSession, setEditSession] = useState({});
   const [isNewSessionOn, setIsNewSessionOn] = useState(false);
+  const [isEditSeasonOn, setIsEditSeasonOn] = useState(false);
+  const [season, setSeason] = useState({ props });
+
+  const handleSeasonEditor = () => {
+    setIsEditSeasonOn(true);
+  };
 
   const handleSessionEditor = (session) => {
     console.log("handleSessionEditor", session);
@@ -58,6 +65,7 @@ export function SessionsIndex(props) {
   const handleClose = () => {
     setIsSessionEditOn(false);
     setIsNewSessionOn(false);
+    setIsEditSeasonOn(false);
   };
 
   return (
@@ -113,8 +121,12 @@ export function SessionsIndex(props) {
       <Modal show={isNewSessionOn} onClose={handleClose}>
         <SessionsNew onCreateSession={handleCreateSession} season_id={props.season.id} />
       </Modal>
-      <button className="btn btn-warning">Edit Season</button>
-      <button className="btn btn-danger">Delete Season</button>
+      <button className="btn btn-warning" onClick={handleSeasonEditor}>
+        Edit Season
+      </button>
+      <Modal show={isEditSeasonOn} onClose={handleClose}>
+        <SeasonEdit season={props.season} />
+      </Modal>
     </div>
   );
 }
