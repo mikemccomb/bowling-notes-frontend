@@ -12,7 +12,7 @@ export function SeasonEdit(props) {
 
   const handleUpdateSeason = (id, params, successCallback) => {
     console.log("handleUpdateSeason", params);
-    axios.patch(`http://localhost:3000/seasons/${id}.json`, params).then((response) => {
+    axios.patch(`/seasons/${id}.json`, params).then((response) => {
       if (props.season.id === response.data.id) {
         return response.data;
       } else {

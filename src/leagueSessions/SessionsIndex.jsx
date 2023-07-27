@@ -19,7 +19,7 @@ export function SessionsIndex(props) {
 
   const handleDestroySeason = (season) => {
     console.log("handleDestroySeason", season);
-    axios.delete(`http://localhost:3000/seasons/${season.id}.json`).then((response) => {
+    axios.delete(`/seasons/${season.id}.json`).then((response) => {
       setSeasons(seasons.filter((s) => s.id !== season.id));
       handleClose();
     });
@@ -37,7 +37,7 @@ export function SessionsIndex(props) {
 
   const handleCreateSession = (params, successCallback) => {
     console.log("handleCreateSession", params);
-    axios.post("http://localhost:3000/league_sessions.json", params).then((response) => {
+    axios.post("/league_sessions.json", params).then((response) => {
       setSessions([...sessions, response.data]);
       successCallback();
     });
@@ -45,7 +45,7 @@ export function SessionsIndex(props) {
 
   const handleUpdateSession = (id, params, successCallback) => {
     console.log("handleUpdateSession", params);
-    axios.patch(`http://localhost:3000/league_sessions/${id}.json`, params).then((response) => {
+    axios.patch(`/league_sessions/${id}.json`, params).then((response) => {
       setSessions(
         sessions.map((session) => {
           if (session.id === response.data.id) {
@@ -63,7 +63,7 @@ export function SessionsIndex(props) {
 
   const handleDestroySession = (session) => {
     console.log("handleDestroySession", session);
-    axios.delete(`http://localhost:3000/league_sessions/${session.id}.json`).then((response) => {
+    axios.delete(`/league_sessions/${session.id}.json`).then((response) => {
       setSessions(sessions.filter((s) => s.id !== session.id));
       handleClose();
     });

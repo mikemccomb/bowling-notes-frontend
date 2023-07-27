@@ -17,7 +17,7 @@ export function LeagueInfo() {
 
   const handleCreateSeason = (params, successCallback) => {
     console.log("handleCreateSeason", params);
-    axios.post("http://localhost:3000/seasons.json", params).then((response) => {
+    axios.post("/seasons.json", params).then((response) => {
       setSeasons([...seasons, response.data]);
       successCallback();
     });
