@@ -23,6 +23,14 @@ export function SeasonEdit(props) {
     window.location.reload(false);
   };
 
+  const handleClick = () => {
+    let text = "Are you sure you want to delete your season?";
+    if (confirm(text)) {
+      props.onDestroySeason(props.season);
+    }
+    window.location.reload(false);
+  };
+
   return (
     <div className="card mt-3">
       <h1 className="card-header">Edit Season</h1>
@@ -67,7 +75,9 @@ export function SeasonEdit(props) {
           <button className="btn btn-success" type="submit">
             Update Season
           </button>
-          <button className="btn btn-danger">Delete Season</button>
+          <button className="btn btn-danger" onClick={handleClick}>
+            Delete Season
+          </button>
         </div>
       </form>
     </div>

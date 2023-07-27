@@ -12,10 +12,17 @@ export function SessionsIndex(props) {
   const [editSession, setEditSession] = useState({});
   const [isNewSessionOn, setIsNewSessionOn] = useState(false);
   const [isEditSeasonOn, setIsEditSeasonOn] = useState(false);
-  const [season, setSeason] = useState({ props });
 
   const handleSeasonEditor = () => {
     setIsEditSeasonOn(true);
+  };
+
+  const handleDestroySeason = (season) => {
+    console.log("handleDestroySeason", season);
+    axios.delete(`http://localhost:3000/seasons/${season.id}.json`).then((response) => {
+      setSeasons(seasons.filter((s) => s.id !== season.id));
+      handleClose();
+    });
   };
 
   const handleSessionEditor = (session) => {
@@ -125,7 +132,7 @@ export function SessionsIndex(props) {
         Edit Season
       </button>
       <Modal show={isEditSeasonOn} onClose={handleClose}>
-        <SeasonEdit season={props.season} />
+        <SeasonEdit season={props.season} onDestroySeason={handleDestroySeason} />
       </Modal>
     </div>
   );
