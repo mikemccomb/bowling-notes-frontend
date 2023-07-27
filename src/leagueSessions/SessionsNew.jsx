@@ -15,7 +15,6 @@ export function SessionsNew(props) {
     event.preventDefault();
     const params = new FormData(event.target);
     props.onCreateSession(params, () => event.target.reset());
-    event.target.reset();
     window.location.href = "/";
   };
 
@@ -46,7 +45,7 @@ export function SessionsNew(props) {
                 <label>Game 2:</label>
               </td>
               <td>
-                <input minLength="3" name="gametwo" type="number" onChange={updateGame} />
+                <input maxLength="3" name="gametwo" type="number" onChange={updateGame} />
               </td>
             </tr>
             <tr>
@@ -54,7 +53,7 @@ export function SessionsNew(props) {
                 <label>Game 3:</label>
               </td>
               <td>
-                <input minLength="3" name="gamethree" type="number" onChange={updateGame} />
+                <input maxLength="3" name="gamethree" type="number" onChange={updateGame} />
               </td>
             </tr>
             <tr>
@@ -73,15 +72,15 @@ export function SessionsNew(props) {
                 <input name="notes" type="textarea" defaultValue={""} />
               </td>
             </tr>
+            <tr>
+              <td>
+                <label>Season:</label>
+              </td>
+              <td>
+                <input name="season_id" type="number" defaultValue={props.season_id} />
+              </td>
+            </tr>
           </tbody>
-          <tr>
-            <td>
-              <label>Season:</label>
-            </td>
-            <td>
-              <input name="season_id" type="number" />
-            </td>
-          </tr>
         </table>
         <div>
           <button className="btn btn-success" type="submit">
