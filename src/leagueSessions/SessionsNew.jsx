@@ -45,7 +45,7 @@ export function SessionsNew(props) {
                 <label>Game 2:</label>
               </td>
               <td>
-                <input minLength="3" name="gametwo" type="number" onChange={updateGame} />
+                <input maxLength="3" name="gametwo" type="number" onChange={updateGame} />
               </td>
             </tr>
             <tr>
@@ -53,7 +53,7 @@ export function SessionsNew(props) {
                 <label>Game 3:</label>
               </td>
               <td>
-                <input minLength="3" name="gamethree" type="number" onChange={updateGame} />
+                <input maxLength="3" name="gamethree" type="number" onChange={updateGame} />
               </td>
             </tr>
             <tr>
