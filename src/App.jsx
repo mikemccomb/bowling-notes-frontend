@@ -10,8 +10,6 @@ function App() {
     <div className="container-fluid font-link">
       <Header />
       <LeagueInfo />
-      {/* <Content /> */}
-      {/* <SessionsContent /> */}
       <SeasonsContent />
       <Footer />
     </div>

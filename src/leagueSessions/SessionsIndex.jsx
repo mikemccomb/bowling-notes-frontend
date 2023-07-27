@@ -76,7 +76,7 @@ export function SessionsIndex(props) {
   };
 
   return (
-    <div>
+    <div className="container-fluid">
       <h3>Season Sessions</h3>
 
       <table className="table card-text">
@@ -105,11 +105,6 @@ export function SessionsIndex(props) {
                 <td>{session.gamethree}</td>
                 <td>{session.series}</td>
                 <td>{session.notes}</td>
-                {/* <td>
-                  <button className="btn btn-warning" onClick={() => handleSessionEditor(session)}>
-                    Edit
-                  </button>
-                </td> */}
               </tr>
             </tbody>
           </>
