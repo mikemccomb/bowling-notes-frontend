@@ -34,7 +34,7 @@ export function SeasonsContent() {
 
   return (
     <div>
-      <SeasonsNew onCreateSeason={handleCreateSeason} />
+      {/* <SeasonsNew onCreateSeason={handleCreateSeason} /> */}
       <SeasonsIndex seasons={seasons} onShowSeason={handleShowSeason} />
     </div>
   );

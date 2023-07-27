@@ -62,7 +62,7 @@ export function SessionsIndex(props) {
 
   return (
     <div>
-      <h3>League Sessions</h3>
+      <h3>Season Sessions</h3>
 
       <table className="table card-text">
         <thead>
@@ -73,24 +73,28 @@ export function SessionsIndex(props) {
             <th>Game 3</th>
             <th>Series</th>
             <th>Notes</th>
-            <th></th>
+            {/* <th></th> */}
           </tr>
         </thead>
         {props.season.league_sessions.map((session) => (
           <>
             <tbody key={session.id}>
               <tr>
-                <th scope="row">{session.date}</th>
+                <th scope="row">
+                  <button className="btn btn-primary btn-sm" onClick={() => handleSessionEditor(session)}>
+                    {session.date}
+                  </button>
+                </th>
                 <td>{session.gameone}</td>
                 <td>{session.gametwo}</td>
                 <td>{session.gamethree}</td>
                 <td>{session.series}</td>
                 <td>{session.notes}</td>
-                <td>
+                {/* <td>
                   <button className="btn btn-warning" onClick={() => handleSessionEditor(session)}>
                     Edit
                   </button>
-                </td>
+                </td> */}
               </tr>
             </tbody>
           </>
@@ -109,6 +113,8 @@ export function SessionsIndex(props) {
       <Modal show={isNewSessionOn} onClose={handleClose}>
         <SessionsNew onCreateSession={handleCreateSession} season_id={props.season.id} />
       </Modal>
+      <button className="btn btn-warning">Edit Season</button>
+      <button className="btn btn-danger">Delete Season</button>
     </div>
   );
 }
