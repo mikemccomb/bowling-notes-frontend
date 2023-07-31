@@ -16,9 +16,13 @@ export function Footer() {
 
 
   return (
-    <footer className="container-fluid mt-2">
-      <p>Copyright 2023</p>
-      <button onClick={handleShowAbout}>About</button>
+    <footer className="container-flex">
+      <div className="d-inline-flex p-2">
+        <p>Copyright 2023</p>
+      </div>
+      <div className="d-inline-flex">
+        <button className="btn btn-info btn-sm" onClick={handleShowAbout}>About</button>
+      </div>
       <Modal show={showAbout} onClose={handleClose}>
         <About />
       </Modal>
