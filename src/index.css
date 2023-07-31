@@ -15,3 +15,7 @@ html {
   margin-right: 5px;
   margin-left: 5px;
 }
+
+#footer .container {
+  justify-content: space-between;
+}
